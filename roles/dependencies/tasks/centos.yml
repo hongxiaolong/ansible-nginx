@@ -1,0 +1,20 @@
+- name: CentOS | Trying to install the dependencies in CentOS 7.0
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - gcc
+    - gcc-c++
+    - autoconf
+    - automake
+
+- name: CentOS | Trying to install the libraries in CentOS 7.0
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - zlib
+    - zlib-devel
+    - openssl
+    - openssl-devel
+    - pcre-devel

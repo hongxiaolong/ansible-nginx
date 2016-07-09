@@ -1,0 +1,6 @@
+- include: centos.yml
+  tags:
+    - centos
+- include: ubuntu.yml
+  tags:
+    - ubuntu

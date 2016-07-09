@@ -24,4 +24,4 @@
   roles:
 
     - { role: common, tags: install }
-      
+    - { role: dependencies, tags: centos }

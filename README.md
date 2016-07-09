@@ -24,7 +24,7 @@ Here are a few NGINX Ansible Galaxy Roles
 
 * https://galaxy.ansible.com/list#/roles/1580
 
-Read the full post here: 
+Read the full post here:
 
 * [Installing NGINX and NGINX Plus With Ansible](https://www.nginx.com/blog/installing-nginx-nginx-plus-ansible/)
 
@@ -37,7 +37,7 @@ install
 -------
 
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "install, centos"`
+`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "install,centos"`
 
 
 reconfigure
