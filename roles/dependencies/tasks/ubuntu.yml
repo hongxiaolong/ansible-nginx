@@ -1,0 +1,17 @@
+- name: Ubuntu | Trying to install the dependencies in Ubuntu 14.04
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - gcc
+    - g++
+    - make
+
+- name: Ubuntu | Trying to install the libraries in Ubuntu 14.04
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - libpcre3-dev
+    - zlib1g-dev
+    - libssl-dev

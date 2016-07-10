@@ -1,4 +1,6 @@
-remote_user: "root"
+# Permission
+remote_user: "root" # CentOS:root; Ubuntu:dev
+become_user: "root"
 
 # account for nginx
 nginx_user: "nobody"

@@ -1,6 +1,6 @@
 # account for nginx
-nginx_user: nobody
-nginx_group: nobody
+nginx_user: "nobody"
+nginx_group: "nobody"
 nginx_uid: 77
 nginx_gid: 77
 

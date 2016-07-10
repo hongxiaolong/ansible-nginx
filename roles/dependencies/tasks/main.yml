@@ -1,6 +1,17 @@
+- name: debug centos
+  debug: msg=centos
+  tags:
+    - centos
+
+- name: debug ubuntu
+  debug: msg=ubuntu
+  tags:
+    - ubuntu
+
 - include: centos.yml
   tags:
     - centos
+
 - include: ubuntu.yml
   tags:
     - ubuntu

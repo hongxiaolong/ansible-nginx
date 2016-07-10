@@ -40,6 +40,12 @@ install
 `$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "install,centos"`
 
 
+or
+
+
+`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "uu", "env": "dev", "remote_user": "dev"}' -t "ubuntu,install" --ask-sudo-pass`
+
+
 reconfigure
 -------
 

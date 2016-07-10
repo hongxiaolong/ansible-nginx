@@ -16,12 +16,10 @@
 
 - name: NGINX | Trying to check the current password expiry
   command: grep {{nginx_user}} /etc/shadow
-  become: "root"
   register: nginx_old_password
   changed_when: false
 
 - name: NGINX | Trying to set the right expiration on the nginx user
   shell: "chage -I -1 -E -1 -m -1 -M -1 -W -1 -E -1 {{nginx_user}} && grep {{nginx_user}} /etc/shadow"
-  become: "root"
   register: nginx_new_password
   changed_when: nginx_new_password.stdout != nginx_old_password.stdout
