@@ -1,0 +1,22 @@
+- name: NGINX | Trying to download and unarchive the nginx source release
+  unarchive:
+    src: "{{ nginx_source_url }}"
+    dest: "/tmp/"
+    copy: no
+  when: nginx_source_url is defined
+
+- name: NGINX | Trying to compile the nginx source release
+  shell: >
+    cd /tmp/nginx-{{ nginx_source_version }} &&
+    ./configure --prefix={{ nginx_root_dir }}
+
+- name: NGINX | Trying to make, make install the nginx source release
+  shell: >
+    cd /tmp/nginx-{{nginx_source_version}} &&
+    make &&
+    make install
+
+- name: NGINX | Trying to clear the nginx source release
+  file:
+    path: "/tmp/nginx-{{nginx_source_version}}"
+    state: absent

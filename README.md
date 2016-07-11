@@ -33,17 +33,25 @@ Read the full post here:
 How to Play
 =======
 
+> You should related your environment includes:
+
+	* hosts: defined in file like "env/dev/host_vars/dev"
+
+	* env: defined with directory name like "dev" in env/
+
+	* remote_user: defined in file like "env/dev/group_vars/variables.yml" or cmd, used to connect with SSH
+
 install
 -------
 
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "install,centos"`
+`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "centos,install"`
 
 
 or
 
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "uu", "env": "dev", "remote_user": "dev"}' -t "ubuntu,install" --ask-sudo-pass`
+`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev", "remote_user": "dev"}' -t "ubuntu,install" --ask-sudo-pass`
 
 
 reconfigure

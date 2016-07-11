@@ -15,6 +15,7 @@
 
 - name: Operations to install, reconfigure or reload of NGINX
   hosts: "{{ hosts }}"
+
   remote_user: "{{ remote_user }}"
   become: yes
   become_user: "{{ become_user }}"
@@ -25,5 +26,6 @@
 
   roles:
 
-    - { role: common, tags: install }
     - { role: dependencies, tags: centos or ubuntu }
+    - { role: common, tags: install }
+    - { role: install, tags: install }

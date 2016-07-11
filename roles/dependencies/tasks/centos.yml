@@ -1,6 +1,6 @@
 - name: CentOS | Trying to install the dependencies in CentOS 7.0
   yum:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: present
   with_items:
     - gcc
@@ -10,7 +10,7 @@
 
 - name: CentOS | Trying to install the libraries in CentOS 7.0
   yum:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: present
   with_items:
     - zlib

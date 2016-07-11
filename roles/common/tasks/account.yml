@@ -1,25 +1,25 @@
 - name: NGINX | Trying to make sure the nginx group is present
   group:
-    gid: "{{nginx_gid}}"
-    name: "{{nginx_group}}"
+    gid: "{{ nginx_gid }}"
+    name: "{{ nginx_group }}"
     state: present
 
 - name: NGINX | Trying to make sure the nginx user is present
   user:
-    name: "{{nginx_user}}"
-    uid: "{{nginx_uid}}"
-    group: "{{nginx_group}}"
+    name: "{{ nginx_user }}"
+    uid: "{{ nginx_uid }}"
+    group: "{{ nginx_group }}"
     comment: "nginx user"
     shell: /bin/false
     state: present
     system: yes
 
 - name: NGINX | Trying to check the current password expiry
-  command: grep {{nginx_user}} /etc/shadow
+  command: grep {{ nginx_user }} /etc/shadow
   register: nginx_old_password
   changed_when: false
 
-- name: NGINX | Trying to set the right expiration on the nginx user
-  shell: "chage -I -1 -E -1 -m -1 -M -1 -W -1 -E -1 {{nginx_user}} && grep {{nginx_user}} /etc/shadow"
+- name: NGINX | Trying to set the right expiration of the nginx user
+  shell: "chage -I -1 -E -1 -m -1 -M -1 -W -1 -E -1 {{ nginx_user }} && grep {{ nginx_user }} /etc/shadow"
   register: nginx_new_password
   changed_when: nginx_new_password.stdout != nginx_old_password.stdout

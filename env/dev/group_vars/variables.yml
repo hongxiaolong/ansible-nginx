@@ -1,5 +1,5 @@
 # Permission
-remote_user: "root" # CentOS:root; Ubuntu:dev
+remote_user: "root" # CentOS:root; Ubuntu:dev or others
 become_user: "root"
 
 # account for nginx
