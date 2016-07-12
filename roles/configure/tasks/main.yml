@@ -1,0 +1,27 @@
+# Create confs
+
+- name: NGINX | Trying to create related confs in the conf directory
+  copy:
+    src: conf/
+    dest: "{{ nginx_conf_dir }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    mode: 0644
+
+- name: NGINX | Trying to create nginx.conf in the conf directory
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_conf_dir }}/nginx.conf"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    mode: 0644
+
+# Create html files
+
+- name: NGINX | Trying to create html files in the html directory
+  copy:
+    src: html/
+    dest: "{{ nginx_html_dir }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    mode: 0644

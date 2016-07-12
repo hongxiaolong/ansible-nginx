@@ -29,3 +29,4 @@
     - { role: dependencies, tags: centos or ubuntu }
     - { role: common, tags: install }
     - { role: install, tags: install }
+    - { role: configure, tags: install }

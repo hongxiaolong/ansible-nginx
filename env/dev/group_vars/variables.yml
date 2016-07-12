@@ -11,6 +11,6 @@ nginx_gid: 77
 # directories for nginx
 nginx_root_dir: "/usr/local/nginx"
 nginx_conf_dir: "/usr/local/nginx/conf"
-nginx_confd_dir: "/usr/local/nginx/conf.d"
+nginx_confd_dir: "/usr/local/nginx/conf/conf.d"
 nginx_log_dir: "/usr/local/nginx/logs"
-nginx_static_dir: "/usr/local/nginx/html"
+nginx_html_dir: "/usr/local/nginx/html"

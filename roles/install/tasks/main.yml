@@ -10,7 +10,7 @@
     cd /tmp/nginx-{{ nginx_source_version }} &&
     ./configure --prefix={{ nginx_root_dir }}
 
-- name: NGINX | Trying to make, make install the nginx source release
+- name: NGINX | Trying to make && make install the nginx source release
   shell: >
     cd /tmp/nginx-{{nginx_source_version}} &&
     make &&
