@@ -1,0 +1,3 @@
+# nginx service
+nginx_service_sbin: "/usr/local/nginx/sbin/nginx"
+nginx_service_conf: "/usr/local/nginx/conf/nginx.conf"

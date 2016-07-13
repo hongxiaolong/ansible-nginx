@@ -14,3 +14,7 @@ nginx_conf_dir: "/usr/local/nginx/conf"
 nginx_confd_dir: "/usr/local/nginx/conf/conf.d"
 nginx_log_dir: "/usr/local/nginx/logs"
 nginx_html_dir: "/usr/local/nginx/html"
+
+# nginx service
+nginx_service_sbin: "/usr/local/nginx/sbin/nginx"
+nginx_service_conf: "/usr/local/nginx/conf/nginx.conf"

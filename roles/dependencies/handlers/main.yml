@@ -1,0 +1,29 @@
+- name: Start Nginx
+  service:
+    name: "nginx.service"
+    state: "started"
+    pattern: "nginx"
+  register: nginx_started
+  until: nginx_started|success
+  retries: 5
+  delay: 2
+
+- name: Reload Nginx
+  service:
+    name: "nginx.service"
+    state: "reloaded"
+    pattern: "nginx"
+  register: nginx_reloaded
+  until: nginx_reloaded|success
+  retries: 5
+  delay: 2
+
+- name: Stop Nginx
+  service:
+    name: "nginx.service"
+    state: "stopped"
+    pattern: "nginx"
+  register: nginx_stopped
+  until: nginx_stopped|success
+  retries: 5
+  delay: 2

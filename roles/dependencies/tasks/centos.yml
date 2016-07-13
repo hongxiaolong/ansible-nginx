@@ -18,3 +18,12 @@
     - openssl
     - openssl-devel
     - pcre-devel
+
+- name: NGINX | Trying to init nginx service in CentOS 7.0
+  template:
+    src: nginx.service.j2
+    dest: "/usr/lib/systemd/system/nginx.service"
+    mode: 0754
+    force: yes
+  notify:
+    - Start Nginx
