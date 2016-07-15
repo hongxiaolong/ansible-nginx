@@ -1,117 +1,104 @@
+user  {{ nginx_user }} {% if nginx_user != nginx_group %} {{ nginx_group }}{% endif %};
 
-#user  nobody;
-worker_processes  1;
+worker_processes  {{ nginx_worker_processes }};
 
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
+{% if nginx_daemon_disable %}
+daemon off;
+{% endif %}
 
-#pid        logs/nginx.pid;
+{% if nginx_worker_rlimit_nofile %}
+worker_rlimit_nofile {{ nginx_worker_rlimit_nofile }};
+{% endif %}
 
+error_log  {{ nginx_log_dir }}/{{ nginx_error_log_filename }} {% if nginx_error_log_options %}{{ nginx_error_log_options }}{% endif %};
+pid        {{ nginx_pid }};
 
 events {
-    worker_connections  1024;
+    worker_connections  {{ nginx_worker_connections }};
+
+{% if nginx_multi_accept %}
+    multi_accept on;
+{% endif %}
+
+{% if nginx_event %}
+    use {{ nginx_event }};
+{% endif %}
+
 }
 
-
 http {
-    include       mime.types;
+
+    include       {{ nginx_conf_dir }}/mime.types;
     default_type  application/octet-stream;
 
-    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+{% if nginx_charset %}
+    charset {{ nginx_charset }};
+{% endif %}
 
-    #access_log  logs/access.log  main;
+{% if nginx_disable_access_log %}
+    access_log    off;
+{% else %}
+{% for log in nginx_access_logs %}
+    log_format  {{ log['name'] }}  '{{ log['format'] }}' {% if nginx_error_log_level %}{{ nginx_error_log_level }}{% endif %};
+    access_log    {{ nginx_log_dir }}/{{ log['filename'] }} {{ log['name'] }}{% if log['options'] %} {{ log['options'] }}{% endif %};
+{% endfor %}
+{% endif %}
 
-    sendfile        on;
-    #tcp_nopush     on;
+{% if nginx_sendfile %}
+    sendfile {{ nginx_sendfile }};
+{% endif %}
+{% if nginx_tcp_nopush %}
+    tcp_nopush {{ nginx_tcp_nopush }};
+{% endif %}
+{% if nginx_tcp_nodelay %}
+    tcp_nodelay {{ nginx_tcp_nodelay }};
+{% endif %}
 
-    #keepalive_timeout  0;
-    keepalive_timeout  65;
+{% if nginx_keepalive %}
+    keepalive_timeout  {{ nginx_keepalive_timeout }};
+{% endif %}
+{% if nginx_client_body_timeout %}
+    client_body_timeout  {{ nginx_client_body_timeout }};
+{% endif %}
+{% if nginx_client_header_timeout %}
+    client_header_timeout  {{ nginx_client_header_timeout }};
+{% endif %}
+{% if nginx_send_timeout %}
+    send_timeout  {{ nginx_send_timeout }};
+{% endif %}
 
-    #gzip  on;
+{% if nginx_gzip %}
+    gzip  {{ nginx_gzip }};
+{% endif %}
+{% if nginx_gzip == 'on' %}
+    gzip_http_version {{ nginx_gzip_http_version }};
+    gzip_comp_level {{ nginx_gzip_comp_level }};
+    gzip_proxied {{ nginx_gzip_proxied }};
+    gzip_vary {{ nginx_gzip_vary }};
+{% if nginx_gzip_buffers %}
+    gzip_buffers {{ nginx_gzip_buffers }};
+{% endif %}
+    gzip_types {{ nginx_gzip_types|join(' ') }};
+    gzip_min_length {{ nginx_gzip_min_length }};
+    gzip_disable    "{{ nginx_gzip_disable }}";
+{% endif %}
 
-    server {
-        listen       80;
-        server_name  localhost;
+{% if nginx_client_body_buffer_size %}
+    client_body_buffer_size  {{ nginx_client_body_buffer_size }};
+{% endif %}
+{% if nginx_client_header_buffer_size %}
+    client_header_buffer_size  {{ nginx_client_header_buffer_size }};
+{% endif %}
+{% if nginx_client_max_body_size %}
+    client_max_body_size  {{ nginx_client_max_body_size }};
+{% endif %}
+{% if nginx_large_client_header_buffers %}
+    large_client_header_buffers  {{ nginx_large_client_header_buffers }};
+{% endif %}
 
-        #charset koi8-r;
+{% if nginx_enable_rate_limiting %}
+    limit_req_zone $binary_remote_addr zone={{ nginx_rate_limiting_zone_name }}:{{ nginx_rate_limiting_backoff }} rate={{ nginx_rate_limit }};
+{% endif %}
 
-        #access_log  logs/host.access.log  main;
-
-        location / {
-            root   html;
-            index  index.html index.htm;
-        }
-
-        #error_page  404              /404.html;
-
-        # redirect server error pages to the static page /50x.html
-        #
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-
-        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-        #
-        #location ~ \.php$ {
-        #    proxy_pass   http://127.0.0.1;
-        #}
-
-        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-        #
-        #location ~ \.php$ {
-        #    root           html;
-        #    fastcgi_pass   127.0.0.1:9000;
-        #    fastcgi_index  index.php;
-        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-        #    include        fastcgi_params;
-        #}
-
-        # deny access to .htaccess files, if Apache's document root
-        # concurs with nginx's one
-        #
-        #location ~ /\.ht {
-        #    deny  all;
-        #}
-    }
-
-
-    # another virtual host using mix of IP-, name-, and port-based configuration
-    #
-    #server {
-    #    listen       8000;
-    #    listen       somename:8080;
-    #    server_name  somename  alias  another.alias;
-
-    #    location / {
-    #        root   html;
-    #        index  index.html index.htm;
-    #    }
-    #}
-
-
-    # HTTPS server
-    #
-    #server {
-    #    listen       443 ssl;
-    #    server_name  localhost;
-
-    #    ssl_certificate      cert.pem;
-    #    ssl_certificate_key  cert.key;
-
-    #    ssl_session_cache    shared:SSL:1m;
-    #    ssl_session_timeout  5m;
-
-    #    ssl_ciphers  HIGH:!aNULL:!MD5;
-    #    ssl_prefer_server_ciphers  on;
-
-    #    location / {
-    #        root   html;
-    #        index  index.html index.htm;
-    #    }
-    #}
-
+    include {{ nginx_confd_dir }}/*.conf;
 }

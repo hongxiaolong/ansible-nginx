@@ -1,6 +1,11 @@
+# account for nginx
+nginx_user: "nobody"
+nginx_group: "nobody"
+
 # nginx root directories
 nginx_root_dir: "/usr/local/nginx"
 
 # nginx source release
 nginx_source_version: "1.10.1"
-nginx_source_url: "http://nginx.org/download/nginx-1.10.1.tar.gz"
+#nginx_source_url: "http://nginx.org/download/nginx-1.10.1.tar.gz"
+nginx_source_url: "http://10.9.1.172:8080/static/nginx-1.10.1.tar.gz"

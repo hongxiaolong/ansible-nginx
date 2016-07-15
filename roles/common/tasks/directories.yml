@@ -3,7 +3,7 @@
     path: "{{ nginx_root_dir }}"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
-    mode: 0644
+    mode: 0755
     state: directory
 
 - name: NGINX | Trying to create the nginx conf directory
@@ -11,7 +11,7 @@
     path: "{{ nginx_conf_dir }}"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
-    mode: 0644
+    mode: 0755
     state: directory
 
 - name: NGINX | Trying to create the nginx conf.d directory
@@ -19,7 +19,7 @@
     path: "{{ nginx_confd_dir }}"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
-    mode: 0644
+    mode: 0755
     state: directory
 
 - name: NGINX | Trying to create the nginx log directory
@@ -27,7 +27,7 @@
     path: "{{ nginx_log_dir }}"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
-    mode: 0644
+    mode: 0755
     state: directory
 
 - name: NGINX | Trying to create the nginx html directory
@@ -35,5 +35,5 @@
     path: "{{ nginx_html_dir }}"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
-    mode: 0644
+    mode: 0755
     state: directory

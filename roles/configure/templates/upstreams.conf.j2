@@ -1,0 +1,16 @@
+{% for u in item %}
+upstream {{ u.name }} {
+
+{% if u.strategy is defined %}
+    {{ u.strategy }};
+{% endif %}
+
+{% for k,v in u.iteritems() if k.find('server') != -1 %}
+{% for s in v %}
+    server {{ s.name }} weight={{ s.weight }};
+{% endfor %}
+{% endfor %}
+
+}
+{% endif %}
+{% endfor %}

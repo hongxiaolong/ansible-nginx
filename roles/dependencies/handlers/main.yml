@@ -27,3 +27,11 @@
   until: nginx_stopped|success
   retries: 5
   delay: 2
+
+- name: Systemctl Daemon Reload
+  shell: >
+    systemctl daemon-reload
+  register: systemctl_daemon_reloaded
+  until: systemctl_daemon_reloaded|success
+  retries: 5
+  delay: 2

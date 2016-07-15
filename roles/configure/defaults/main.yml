@@ -1,0 +1,81 @@
+# account for nginx
+nginx_user: "nobody"
+nginx_group: "nobody"
+
+# directories for nginx
+nginx_conf_dir: "/usr/local/nginx/conf"
+nginx_confd_dir: "/usr/local/nginx/conf/conf.d"
+nginx_log_dir: "/usr/local/nginx/logs"
+nginx_html_dir: "/usr/local/nginx/html"
+
+# params used to set nginx.conf
+nginx_worker_processes: "auto"
+nginx_daemon_disable: null
+nginx_worker_rlimit_nofile: null
+nginx_error_log_filename: 'error.log'
+nginx_error_log_options: null
+nginx_pid: "/var/run/nginx.pid"
+nginx_worker_connections: 1024
+nginx_multi_accept: null
+nginx_event: null
+nginx_charset: null
+nginx_disable_access_log: null
+nginx_access_logs:
+  - name: "main"
+    format: '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"'
+    options: null
+    filename: "access.log"
+nginx_error_log_level: null
+nginx_sendfile: 'on'
+nginx_tcp_nodelay: null
+nginx_tcp_nopush: null
+nginx_keepalive: "on"
+nginx_keepalive_timeout: "65"
+nginx_client_body_timeout: null
+nginx_client_header_timeout: null
+nginx_send_timeout: null
+
+# params used to set gzip
+nginx_gzip: null
+nginx_gzip_http_version: 1.1
+nginx_gzip_comp_level: 2
+nginx_gzip_proxied: "expired no-cache no-store private auth"
+nginx_gzip_vary: 'on'
+nginx_gzip_buffers: null
+nginx_gzip_types:
+  - "text/plain"
+  - "text/css"
+  - "text/xml"
+  - "text/csv"
+  - "text/javascript"
+  - "application/x-javascript"
+  - "application/xml"
+  - "application/xml+rss"
+  - "application/javascript"
+  - "application/postscript"
+  - "application/pdf"
+  - "application/ecmascript"
+  - "application/json"
+  - "image/svg+xml"
+nginx_gzip_min_length: 10240
+nginx_gzip_disable: "MSIE [1-6]\\."
+
+nginx_client_body_buffer_size: null
+nginx_client_header_buffer_size: null
+nginx_client_max_body_size: null
+nginx_large_client_header_buffers: null
+nginx_enable_rate_limiting: null
+nginx_rate_limiting_zone_name: "default"
+nginx_rate_limiting_backoff: "10m"
+nginx_rate_limit: "1r/s"
+
+# sites for nginx
+nginx_sites:
+  - name: "default"
+    port: 80
+    hostname: "localhost"
+    location:
+      - name: "/"
+
+# upstreams for nginx
+nginx_upstreams: null

@@ -1,0 +1,65 @@
+server {
+
+    listen   {{ item.port }};
+    server_name  {{ item.hostname }};
+
+{% if item.access_log_filename  is defined %}
+    access_log {{ nginx_log_dir }}/{{ item.access_log_filename }}  {% if item.access_log_options %}{{ item.access_log_options }}{% endif %};
+{% endif %}
+{% if item.error_log_filename  is defined %}
+    access_log {{ nginx_log_dir }}/{{ item.error_log_filename }}  {% if item.error_log_options %}{{ item.error_log_options }}{% endif %};
+{% endif %}
+
+    index index.html index.htm;
+
+    root {{ nginx_html_dir }};
+
+{% for k,v in item.iteritems() if k.find('location') != -1 %}
+
+{% for l in v %}
+
+    location {{ l.name }} {
+
+{% if l.upstream is defined %}
+      proxy_next_upstream http_500 http_502 http_503 http_504 error timeout invalid_header;
+      add_header Cache-Control max-age=0,no-cache;
+      add_header Expires 'Thu, 05 Jan 1995 22:00:00 GMT';
+
+      proxy_pass http://{{ l.upstream }};
+      proxy_redirect     {{ l.proxy_redirect }};
+
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+      client_max_body_size       {{ l.client_max_body_size }};
+      client_body_buffer_size    {{ l.client_body_buffer_size }};
+
+      proxy_connect_timeout      {{ l.proxy_connect_timeout }};
+      proxy_send_timeout         {{ l.proxy_send_timeout }};
+      proxy_read_timeout         {{ l.proxy_read_timeout }};
+
+      proxy_buffer_size          {{ l.proxy_buffer_size }};
+      proxy_buffers              {{ l.proxy_buffers }};
+      proxy_busy_buffers_size    {{ l.proxy_busy_buffers_size }};
+      proxy_temp_file_write_size {{ l.proxy_temp_file_write_size }};
+{% else %}
+{% if l.alias is defined %}
+      alias {{ l.alias }};
+{% endif %}
+{% if l.expires is defined %}
+      expires {{ l.expires }};
+{% endif %}
+{% endif %}
+
+    }
+{% endfor %}
+{% endfor %}
+
+{% for k,v in item.iteritems() if k.find('error_page') != -1 %}
+{% for e in v %}
+    error_page {{ e.code }} {{ e.page }};
+{% endfor %}
+{% endfor %}
+
+}

@@ -3,6 +3,8 @@
     src: "{{ nginx_source_url }}"
     dest: "/tmp/"
     copy: no
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
   when: nginx_source_url is defined
 
 - name: NGINX | Trying to compile the nginx source release
