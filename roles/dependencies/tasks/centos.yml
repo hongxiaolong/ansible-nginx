@@ -21,10 +21,17 @@
 
 - name: NGINX | Trying to init nginx service in CentOS 7.0
   template:
-    src: nginx.service.j2
+    src: nginx.systemd.j2
     dest: "/usr/lib/systemd/system/nginx.service"
     mode: 0754
     force: yes
+
+- name: CentOS | Trying to reload systemd daemon
+  shell: >
+    systemctl daemon-reload
+  register: systemd_daemon_reloaded
+  until: systemd_daemon_reloaded|success
+  retries: 5
+  delay: 2
   notify:
-    - Systemctl Daemon Reload
-    - Start Nginx
+    - systemd start nginx

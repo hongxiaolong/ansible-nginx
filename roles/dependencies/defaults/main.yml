@@ -1,3 +1,4 @@
-# nginx service
-nginx_service_sbin: "/usr/local/nginx/sbin/nginx"
-nginx_service_conf: "/usr/local/nginx/conf/nginx.conf"
+# directories for nginx
+nginx_root_dir: "/usr/local/nginx"
+nginx_conf_dir: "/usr/local/nginx/conf"
+nginx_pid: "/var/run/nginx.pid"

@@ -7,6 +7,7 @@ nginx_conf_dir: "/usr/local/nginx/conf"
 nginx_confd_dir: "/usr/local/nginx/conf/conf.d"
 nginx_log_dir: "/usr/local/nginx/logs"
 nginx_html_dir: "/usr/local/nginx/html"
+nginx_pid: "/var/run/nginx.pid"
 
 # params used to set nginx.conf
 nginx_worker_processes: "auto"
@@ -14,7 +15,6 @@ nginx_daemon_disable: null
 nginx_worker_rlimit_nofile: null
 nginx_error_log_filename: 'error.log'
 nginx_error_log_options: null
-nginx_pid: "/var/run/nginx.pid"
 nginx_worker_connections: 1024
 nginx_multi_accept: null
 nginx_event: null

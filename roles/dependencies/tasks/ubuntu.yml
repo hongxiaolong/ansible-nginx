@@ -15,3 +15,12 @@
     - libpcre3-dev
     - zlib1g-dev
     - libssl-dev
+
+- name: NGINX | Trying to init nginx service in Ubuntu 14.04
+  template:
+    src: nginx.initd.j2
+    dest: "/etc/init.d/nginx"
+    mode: 0754
+    force: yes
+  notify:
+    - initd start nginx
