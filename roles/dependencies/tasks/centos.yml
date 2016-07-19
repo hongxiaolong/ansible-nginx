@@ -26,7 +26,7 @@
     mode: 0754
     force: yes
 
-- name: CentOS | Trying to reload systemd daemon
+- name: CentOS | Trying to reload systemd daemon in CentOS 7.0
   shell: >
     systemctl daemon-reload
   register: systemd_daemon_reloaded

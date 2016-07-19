@@ -1,4 +1,4 @@
-{% for u in item %}
+{% for u in item.upstream %}
 upstream {{ u.name }} {
 
 {% if u.strategy is defined %}
@@ -7,10 +7,9 @@ upstream {{ u.name }} {
 
 {% for k,v in u.iteritems() if k.find('server') != -1 %}
 {% for s in v %}
-    server {{ s.name }} weight={{ s.weight }};
+    server {{ s.name }}{% if s.weight is defined %} weight={{ s.weight }}{% endif %};
 {% endfor %}
 {% endfor %}
 
 }
-{% endif %}
 {% endfor %}

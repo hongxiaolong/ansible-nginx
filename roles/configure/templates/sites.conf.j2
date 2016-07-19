@@ -25,8 +25,8 @@ server {
       add_header Cache-Control max-age=0,no-cache;
       add_header Expires 'Thu, 05 Jan 1995 22:00:00 GMT';
 
-      proxy_pass http://{{ l.upstream }};
-      proxy_redirect     {{ l.proxy_redirect }};
+      proxy_pass {{ l.upstream }};
+      proxy_redirect {{ l.proxy_redirect }};
 
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;

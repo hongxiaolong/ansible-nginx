@@ -76,6 +76,36 @@ nginx_sites:
     hostname: "localhost"
     location:
       - name: "/"
+        expires: "30d"
+  - name: "example"
+    port: 8080
+    hostname: "localhost"
+    location:
+      - name: "/"
+        upstream: "http://example"
+        proxy_redirect: "off"
+        client_max_body_size: "64m"
+        client_body_buffer_size: "64k"
+        proxy_connect_timeout: 60
+        proxy_send_timeout: 60
+        proxy_read_timeout: 60
+        proxy_buffer_size: "4k"
+        proxy_buffers: "4 32k"
+        proxy_busy_buffers_size: "32k"
+        proxy_temp_file_write_size: "32k"
+    access_log_filename: "example-access.log"
+    access_log_options: "main"
+    error_page:
+      - code: 500
+        page: /50x.html
+      - code: 503
+        page: /50x.html
 
 # upstreams for nginx
-nginx_upstreams: null
+nginx_upstreams:
+  - name: "default"
+    upstream:
+      - name: "example"
+        strategy: "ip_hash"
+        server:
+          - name: "127.0.0.1:80"

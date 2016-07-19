@@ -19,7 +19,7 @@
 - name: NGINX | Trying to create sites.conf in the confd directory
   template:
     src: sites.conf.j2
-    dest: "{{ nginx_confd_dir }}/{{ item.name }}.conf"
+    dest: "{{ nginx_confd_dir }}/{{ item.name }}.site.conf"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
     mode: 0644
@@ -29,7 +29,7 @@
 - name: NGINX | Trying to create upstreams.conf in the confd directory
   template:
     src: upstreams.conf.j2
-    dest: "{{ nginx_confd_dir }}/upstreams.conf"
+    dest: "{{ nginx_confd_dir }}/{{ item.name }}.upstream.conf"
     owner: "{{ nginx_user }}"
     group: "{{ nginx_group }}"
     mode: 0644
