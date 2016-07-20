@@ -1,47 +1,8 @@
-# Create confs
+- include: reconfigure.yml
+  tags:
+    - reload
 
-- name: NGINX | Trying to create related confs in the conf directory
-  copy:
-    src: conf/
-    dest: "{{ nginx_conf_dir }}"
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_group }}"
-    mode: 0644
-
-- name: NGINX | Trying to create nginx.conf in the conf directory
-  template:
-    src: nginx.conf.j2
-    dest: "{{ nginx_conf_dir }}/nginx.conf"
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_group }}"
-    mode: 0644
-
-- name: NGINX | Trying to create sites.conf in the confd directory
-  template:
-    src: sites.conf.j2
-    dest: "{{ nginx_confd_dir }}/{{ item.name }}.site.conf"
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_group }}"
-    mode: 0644
-  with_items: "{{ nginx_sites }}"
-  when: nginx_sites|lower != 'none'
-
-- name: NGINX | Trying to create upstreams.conf in the confd directory
-  template:
-    src: upstreams.conf.j2
-    dest: "{{ nginx_confd_dir }}/{{ item.name }}.upstream.conf"
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_group }}"
-    mode: 0644
-  with_items: "{{ nginx_upstreams }}"
-  when: nginx_upstreams|lower != 'none'
-
-# Create html files
-
-- name: NGINX | Trying to create html files in the html directory
-  copy:
-    src: html/
-    dest: "{{ nginx_html_dir }}"
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_group }}"
-    mode: 0644
+- include: configure.yml
+  tags:
+    - install
+    - reload

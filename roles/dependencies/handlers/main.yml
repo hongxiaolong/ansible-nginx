@@ -1,6 +1,4 @@
-# in CentOS 7.0 using systemctl
-
-- name: systemd start nginx
+- name: start nginx
   service:
     name: "nginx.service"
     state: "started"
@@ -10,7 +8,7 @@
   retries: 5
   delay: 2
 
-- name: systemd reload nginx
+- name: reload nginx
   service:
     name: "nginx.service"
     state: "reloaded"
@@ -20,41 +18,9 @@
   retries: 5
   delay: 2
 
-- name: systemd stop nginx
+- name: stop nginx
   service:
     name: "nginx.service"
-    state: "stopped"
-    pattern: "nginx"
-  register: nginx_stopped
-  until: nginx_stopped|success
-  retries: 5
-  delay: 2
-
-# in Ubuntu 14.04 using init.d script
-
-- name: initd start nginx
-  service:
-    name: "nginx"
-    state: "started"
-    pattern: "nginx"
-  register: nginx_started
-  until: nginx_started|success
-  retries: 5
-  delay: 2
-
-- name: initd reload nginx
-  service:
-    name: "nginx"
-    state: "reloaded"
-    pattern: "nginx"
-  register: nginx_reloaded
-  until: nginx_reloaded|success
-  retries: 5
-  delay: 2
-
-- name: initd stop nginx
-  service:
-    name: "nginx"
     state: "stopped"
     pattern: "nginx"
   register: nginx_stopped

@@ -1,0 +1,23 @@
+# Backup the old conf directories
+
+- name: NGINX | Trying to backup the old conf directories to reconfigure
+  shell: >
+    time=`date +20%y%m%d%H%M%S`; mv {{ nginx_conf_dir }} "{{ nginx_conf_dir }}-$time"
+  notify:
+    - reload nginx
+
+- name: NGINX | Trying to create the nginx conf directory to reconfigure
+  file:
+    path: "{{ nginx_conf_dir }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    mode: 0755
+    state: directory
+
+- name: NGINX | Trying to create the nginx conf.d directory to reconfigure
+  file:
+    path: "{{ nginx_confd_dir }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    mode: 0755
+    state: directory

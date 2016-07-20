@@ -51,7 +51,7 @@ case "$1" in
   reload)
       echo -n "Reloading $DESC configuration: "
       start-stop-daemon --stop --signal HUP --quiet --pidfile $PIDFILE \
-          --exec $DAEMON
+          --exec $DAEMON -- $DAEMON_OPTS
       echo "$NAME."
       ;;
   *)

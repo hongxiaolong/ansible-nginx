@@ -19,8 +19,8 @@
 - name: NGINX | Trying to init nginx service in Ubuntu 14.04
   template:
     src: nginx.initd.j2
-    dest: "/etc/init.d/nginx"
+    dest: "/etc/init.d/nginx.service"
     mode: 0754
     force: yes
   notify:
-    - initd start nginx
+    - start nginx

@@ -34,4 +34,4 @@
   retries: 5
   delay: 2
   notify:
-    - systemd start nginx
+    - start nginx
