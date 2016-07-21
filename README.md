@@ -3,11 +3,12 @@ Introduction
 
  Ansible-NGINX is a Complete ansible playbook (more than roles) for nginx.
 
- This playbook will separate the steps to operate a whole nginx into many roles, and allow users to install/reconfigure/reload nginx services with combined tags and seleted roles.
+ This playbook will separate the steps to operate a whole nginx into many roles, and now allow users to install/reload nginx services with combined tags and seleted roles.
 
 
 
-Related Introduction
+
+Get Involved
 =======
 
 Ansible is a radically simple IT automation system. It handles configuration-management, application deployment, cloud provisioning, ad-hoc task-execution, and multinode orchestration - including trivializing things like zero downtime rolling updates with load balancers.
@@ -30,6 +31,7 @@ Read the full post here:
 
 
 
+
 How to Play
 =======
 
@@ -41,28 +43,65 @@ How to Play
 
 	* remote_user: defined in file like "env/dev/group_vars/variables.yml" or cmd, used to connect with SSH
 
-install
+
+
+how to install
 -------
 
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "centos,install"`
+> in CentOS 7.0
+
+	# ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev", "remote_user": "root"}' -t "centos,install"
 
 
-or
+> in Ubuntu 14.04
+
+	# ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev", "remote_user": "dev"}' -t "ubuntu,install" --ask-sudo-pass
 
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev", "remote_user": "dev"}' -t "ubuntu,install" --ask-sudo-pass`
 
-
-reconfigure
+how to reload
 -------
 
+> in CentOS 7.0
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "reconfigure"`
+	# ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev", "remote_user": "root"}' -t "reload"
+
+> in Ubuntu 14.04
+
+	# ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev", "remote_user": "dev"}' -t "reload" --ask-sudo-pass
 
 
-reload
--------
 
 
-`$ ansible-playbook -i env/dev/host_vars/dev main.yml -e '{"hosts": "default", "env": "dev"}' -t "reload"`
+Documentation
+=======
+
+You can add your own variables in files like
+
+> "env/dev/group_vars/variables.yml"
+
+or define variables just in files like
+
+> "roles/configure/defaults/main.yml"
+
+to customize your own nginx service.
+
+
+
+
+Testing
+=======
+
+* CentOS 7.0     - successful
+
+* Ubuntu 14.04   - successful
+
+
+
+
+Any problem or PR
+=======
+
+
+Are [welcome](https://github.com/hongxiaolong/ansible-nginx/issues)!

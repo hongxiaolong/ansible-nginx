@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Operations to install, reconfigure or reload of NGINX
+- name: Operations to install or reload of NGINX
   hosts: "{{ hosts }}"
 
   remote_user: "{{ remote_user }}"
